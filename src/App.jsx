@@ -35,10 +35,10 @@ function App() {
   const [screamText, setScreamText] = useState('WAAAAAHHHHH!')
 
   const screamTexts = [
-    'WAAAAAHHHHH!',
-    'BHHHHHAAAAAA!',
-    'SCREEEEEEAM!',
-    'MUAHAHAHA!',
+    'GHHHHHAAAA!',
+    'RAAAAGHHH!',
+    'MURRHHHH!',
+    'WOOOAAAAH!',
   ]
 
   useEffect(() => {
@@ -78,6 +78,7 @@ function App() {
 
   const triggerSkeleton = () => {
     const randomScream = screamTexts[Math.floor(Math.random() * screamTexts.length)]
+    const screamDuration = 1200
 
     setScreamText(randomScream)
     setScreamActive(true)
@@ -92,7 +93,7 @@ function App() {
 
     setTimeout(() => {
       setScreamActive(false)
-    }, 1400)
+    }, screamDuration + 100)
   }
 
   const countdownItems = [
@@ -120,7 +121,7 @@ function App() {
   }))
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell ${screamActive ? 'is-screaming' : ''}`}>
       <video
         ref={videoRef}
         className="video-overlay"
@@ -131,6 +132,7 @@ function App() {
         autoPlay
         playsInline
       />
+      <div className={`scream-background ${screamActive ? 'active' : ''}`} aria-hidden="true" />
       <div className="red-tint" aria-hidden="true" />
       <div className="night-sky" aria-hidden="true" />
 
@@ -149,7 +151,11 @@ function App() {
       <div className="skeleton-scene" aria-label="Talk to the skeleton">
         <button type="button" className="skeleton-button" onClick={triggerSkeleton}>
           <span className="skeleton-glow" aria-hidden="true" />
-          <span className="skeleton-face">💀</span>
+          <img
+            src="/sceleton.jpg"
+            alt="Halloween skeleton"
+            className="skeleton-image"
+          />
           <span className="button-label">PRESS TO KNOW</span>
         </button>
       </div>
